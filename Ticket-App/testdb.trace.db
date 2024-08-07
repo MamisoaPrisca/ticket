@@ -1,0 +1,22 @@
+2024-08-07 18:55:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "\000d\000a    create table [*]user (\000d\000a       id bigint not null,\000d\000a        email varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; attendu "identifier"
+Syntax error in SQL statement "\000d\000a    create table [*]user (\000d\000a       id bigint not null,\000d\000a        email varchar(255),\000d\000a        username varchar(255),\000d\000a        primary key (id)\000d\000a    )"; expected "identifier"; SQL statement:
+
+    create table user (
+       id bigint not null,
+        email varchar(255),
+        username varchar(255),
+        primary key (id)
+    ) [42001-214]
+2024-08-07 18:55:38 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "\000d\000a    alter table ticket \000d\000a       add constraint FKeomc8w6a3jtt244oa1rl490yy \000d\000a       foreign key (idutilisateur) \000d\000a       references [*]user"; attendu "identifier"
+Syntax error in SQL statement "\000d\000a    alter table ticket \000d\000a       add constraint FKeomc8w6a3jtt244oa1rl490yy \000d\000a       foreign key (idutilisateur) \000d\000a       references [*]user"; expected "identifier"; SQL statement:
+
+    alter table ticket 
+       add constraint FKeomc8w6a3jtt244oa1rl490yy 
+       foreign key (idutilisateur) 
+       references user [42001-214]
+2024-08-07 18:56:04 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Erreur de syntaxe dans l'instruction SQL "select user0_.id as id1_1_, user0_.email as email2_1_, user0_.username as username3_1_ from [*]user user0_"; attendu "identifier"
+Syntax error in SQL statement "select user0_.id as id1_1_, user0_.email as email2_1_, user0_.username as username3_1_ from [*]user user0_"; expected "identifier"; SQL statement:
+select user0_.id as id1_1_, user0_.email as email2_1_, user0_.username as username3_1_ from user user0_ [42001-214]

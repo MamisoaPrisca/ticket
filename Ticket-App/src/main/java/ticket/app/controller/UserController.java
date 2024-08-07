@@ -37,6 +37,7 @@ public class UserController {
     
     @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable Long id,@RequestBody User utilisateur){
+        utilisateur.setId(id);
         this.userRepository.save(utilisateur);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

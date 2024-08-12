@@ -5,13 +5,18 @@
  */
 package ticket.app.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.Check;
 
 /**
  *
@@ -19,15 +24,19 @@ import javax.persistence.Table;
  */
 @Entity
 @Table (name="ticket")
+@Check(constraints = " Upper(statut) IN (Upper('En cours'), Upper('Terminé'), Upper('Annulé'))")
 public class Ticket {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
     private String titre;
     @Column
     private String description;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "idutilisateur", referencedColumnName = "id" , nullable = false)
+    @JoinColumn(name = "idutilisateur", referencedColumnName = "id" , nullable = true)
+    @JsonBackReference
+
     private User utilisateur;
     @Column
     private String statut;

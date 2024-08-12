@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ticket.app.model.Ticket;
+import ticket.app.model.User;
 import ticket.app.repository.TicketRepository;
 
 /**
@@ -31,16 +32,16 @@ public class TicketController {
     
     @GetMapping
     public ResponseEntity getTickets(){
-        return new ResponseEntity<>(ticketRepository.findAll(), HttpStatus.OK);
+        return new ResponseEntity<>(ticketRepository.findAllTickets(), HttpStatus.OK);
     }
     
     @GetMapping("/{id}")
     public ResponseEntity getTickets(@PathVariable Long id){
-        Optional<Ticket> optional= ticketRepository.findById(id);
-        if(optional.isPresent()){
-            return new ResponseEntity<>(optional.get(),HttpStatus.NO_CONTENT);
+        Optional<Ticket>optinal= ticketRepository.findById(id);
+        if(!optinal.isPresent()){
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(optinal.get(), HttpStatus.OK);
     }
     
     @PostMapping
@@ -53,7 +54,13 @@ public class TicketController {
     public ResponseEntity insert(@PathVariable Long id,@RequestBody Ticket ticket){
         ticket.setId(id);
         this.ticketRepository.save(ticket);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    @PutMapping("/{id}/assign/{useId}")
+    public ResponseEntity assingTicket(@PathVariable Long id,@PathVariable Long useId){
+        this.ticketRepository.assingTicket(id, useId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
     
 }

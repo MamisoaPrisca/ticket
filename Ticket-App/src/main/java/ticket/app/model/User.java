@@ -5,8 +5,8 @@
  */
 package ticket.app.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.util.List;
-import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -31,15 +31,18 @@ public class User {
     private String email;
     
     @OneToMany(mappedBy = "utilisateur")
-    private List<Ticket> users;
+    @JsonManagedReference
+    private List<Ticket> tickets;
 
-    public List<Ticket> getUsers() {
-        return users;
+    public List<Ticket> getTickets() {
+        return tickets;
     }
 
-    public void setUsers(List<Ticket> users) {
-        this.users = users;
+    public void setTickets(List<Ticket> tickets) {
+        this.tickets = tickets;
     }
+
+    
 
     public Long getId() {
         return id;

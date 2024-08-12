@@ -5,8 +5,7 @@
  */
 package ticket.app.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -35,13 +34,22 @@ public class Ticket {
     private String description;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "idutilisateur", referencedColumnName = "id" , nullable = true)
-    @JsonBackReference
-
+    @JsonManagedReference
     private User utilisateur;
     @Column
     private String statut;
     public Long getId() {
         return id;
+    }
+    
+    public Ticket(){
+        
+    }
+
+    public Ticket(String titre, String description, String statut) {
+        this.titre = titre;
+        this.description = description;
+        this.statut = statut;
     }
 
     public void setId(Long id) {
